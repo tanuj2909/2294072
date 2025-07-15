@@ -24,7 +24,6 @@ type LogRequest struct {
 
 func Log(stack, level, pkg, message string) {
 	accessToken := os.Getenv("ACCESS_TOKEN")
-	fmt.Println(accessToken)
 	logEntry := LogRequest{
 		Stack:   stack,
 		Level:   level,
@@ -46,7 +45,7 @@ func Log(stack, level, pkg, message string) {
 		return
 	}
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+accessToken)
+	req.Header.Set("authorization", "Bearer "+accessToken)
 
 	resp, err := client.Do(req)
 	if err != nil {
