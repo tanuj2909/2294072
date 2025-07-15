@@ -1,4 +1,4 @@
-package main
+package middleware
 
 import (
 	"bytes"
@@ -7,8 +7,6 @@ import (
 	"net/http"
 	"os"
 	"time"
-
-	"github.com/joho/godotenv"
 )
 
 const (
@@ -45,7 +43,7 @@ func Log(stack, level, pkg, message string) {
 		return
 	}
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("authorization", "Bearer "+accessToken)
+	req.Header.Set("Authorization", "Bearer "+accessToken)
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -59,13 +57,4 @@ func Log(stack, level, pkg, message string) {
 	} else {
 		fmt.Println("Log sent successfully.")
 	}
-}
-
-func main() {
-	err := godotenv.Load()
-	if err != nil {
-		fmt.Println(err)
-	}
-	Log("backend", "error", "handler", "received string, expected bool")
-	Log("backend", "fatal", "db", "Critical database connection failure.")
 }
